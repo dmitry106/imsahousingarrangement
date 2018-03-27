@@ -22,4 +22,9 @@ with open('MockHousingData.csv', newline='') as f:
 
 print(students['2'].name)
 
+imput_array = numpy.array([[1,2,3]])
+append_array = numpy.array([[4,5,6]])
 
+imput_array = numpy.vstack([imput_array, append_array])
+
+print(imput_array)
