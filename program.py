@@ -15,8 +15,6 @@ class student:
         self.roomlocation = roomlocation
 
 
-newstudent = student("namehere", 1, 2, 3, 4, 5, 6, 7, 8, 9)
-
 students = dict() #dict to iterate list of variables
 
 
@@ -29,8 +27,4 @@ with open('MockHousingData.csv', newline='') as f:
         print(students[row[0]])
 
 
-
-print(students[1].name)
-print(students[67].wing1)
-
-
+print(students['2'])
