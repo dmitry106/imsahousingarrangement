@@ -20,6 +20,6 @@ with open('MockHousingData.csv', newline='') as f:
     for row in reader:
         students[row[0]] = student(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])
 
-
-
 print(students['2'].name)
+
+
