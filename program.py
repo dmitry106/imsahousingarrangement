@@ -13,18 +13,33 @@ class student:
         self.room_location = room_location
 
 
+costlist = []
+
+selectioncost = [0,5,10]
+hallcost = [0,5,10,15]
+wingcost = [0,5,10,15]
+wing2cost = [20]
+
 students = dict() #dict to iterate list of variables
 
 with open('MockHousingData.csv', newline='') as f:
     reader = csv.reader(f)
     for row in reader:
         students[row[0]] = student(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])
+        costlist.append([])
+
 
 print(students['2'].name)
 
 imput_array = numpy.array([[1,2,3]])
-append_array = numpy.array([[4,5,6]])
+append_array = [2,3,4,5]
 
-imput_array = numpy.vstack([imput_array, append_array])
+costlist.append(append_array)
+costlist.append(append_array)
+costlist.append(append_array)
+costlist.append(append_array)
 
-print(imput_array)
+print(costlist)
+
+costlistarray = numpy.array(costlist)
+print(costlistarray)
