@@ -22,35 +22,50 @@ wing2cost = [20]
 
 
 
-def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_location):
+def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_location,hall,wing,room,roomtype):
     return hall_friends_room[:1]
+    
 
 
 
 students = dict() #dict to iterate list of variables
 
-with open('MockHousingData.csv', newline='') as f:
-    reader = csv.reader(f)
-    for row in reader:
-        students[row[0]] = student(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])
+with open('MockHousingData.csv', newline='') as f1:
+    reader1 = csv.reader(f1)
+    for rowhousing in reader1:
+
+        testlist = []
+        students[rowhousing[0]] = student(rowhousing[0],rowhousing[1],rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7])
+
+        with open('HallRoomData.csv', newline='') as f2:
+            reader2 = csv.reader(f2)
+            for rowroom in reader2:
+                print(rowhousing)
+                print(rowroom)
+                testlist.append(costofhousing())
+                
+
+
         
-        print(costofhousing(row[2],row[3],row[4],row[5],row[6],row[7]))
+
         
-        costlist.append([])
+        #print(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7]))
+        
+        #costlist.append([])
 
 
 
-print(students['2'].name)
-
-imput_array = numpy.array([[1,2,3]])
-append_array = [2,3,4,5]
-
-costlist.append(append_array)
-costlist.append(append_array)
-costlist.append(append_array)
-costlist.append(append_array)
-
-#print(costlist)
-
-costlistarray = numpy.array(costlist)
-print(costlistarray)
+#print(students['2'].name)
+#
+#imput_array = numpy.array([[1,2,3]])
+#append_array = [2,3,4,5]
+#
+#costlist.append(append_array)
+#costlist.append(append_array)
+#costlist.append(append_array)
+#costlist.append(append_array)
+#
+##print(costlist)
+#
+#costlistarray = numpy.array(costlist)
+#print(costlistarray)
