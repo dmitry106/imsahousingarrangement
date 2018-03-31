@@ -1,4 +1,3 @@
-
 import csv
 import numpy
 
@@ -13,6 +12,7 @@ class student:
         self.room_location = room_location
 
 
+
 costlist = []
 
 selectioncost = [0,5,10]
@@ -20,13 +20,22 @@ hallcost = [0,5,10,15]
 wingcost = [0,5,10,15]
 wing2cost = [20]
 
+def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_location):
+    return hall_friends_room[:1]
+
+
+
 students = dict() #dict to iterate list of variables
 
 with open('MockHousingData.csv', newline='') as f:
     reader = csv.reader(f)
     for row in reader:
         students[row[0]] = student(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])
+        
+        print(costofhousing(row[2],row[3],row[4],row[5],row[6],row[7]))
+        
         costlist.append([])
+
 
 
 print(students['2'].name)
@@ -39,7 +48,7 @@ costlist.append(append_array)
 costlist.append(append_array)
 costlist.append(append_array)
 
-print(costlist)
+#print(costlist)
 
 costlistarray = numpy.array(costlist)
 print(costlistarray)
