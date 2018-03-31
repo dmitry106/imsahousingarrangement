@@ -15,6 +15,7 @@ class student:
 
 costlist = []
 
+#cost for 
 selectioncost = [0,5,10]
 hallcost = [0,5,10,15]
 wingcost = [0,5,10,15]
@@ -24,7 +25,17 @@ wing2cost = [20]
 
 def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_location,hall,wing,room,roomtype):
     #return hall_friends_room[:1]
-    return hallcost[int(hall_friends_room[:1])-1]
+
+    # set the multiplier for preference of hall or room
+    if int(hall_friends_room[:1]) > int(hall_friends_room[-1:])
+        hallmultiplier = 1 #hall multiplier is smaller because more cost is less preferential
+        roommultiplier = 2
+    elif int(hall_friends_room[:1]) < int(hall_friends_room[-1:])
+        hallmultiplier = 2
+        roommultiplier = 1
+
+
+    return hallcost[]
 
 
 
