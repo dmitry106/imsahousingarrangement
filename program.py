@@ -20,6 +20,8 @@ hallcost = [0,5,10,15]
 wingcost = [0,5,10,15]
 wing2cost = [20]
 
+
+
 def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_location):
     return hall_friends_room[:1]
 
