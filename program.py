@@ -23,15 +23,20 @@ wing2cost = [20]
 
 
 def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_location,hall,wing,room,roomtype):
-    return hall_friends_room[:1]
-    
+    #return hall_friends_room[:1]
+    return hallcost[int(hall_friends_room[:1])-1]
 
 
 
 students = dict() #dict to iterate list of variables
 
 with open('MockHousingData.csv', newline='') as f1:
+    has_header = csv.Sniffer().has_header(f1.read(1024))
+    f1.seek(0)   #rewind to start
     reader1 = csv.reader(f1)
+    if has_header:
+        next(reader1)
+        
     for rowhousing in reader1:
 
         testlist = []
@@ -42,14 +47,13 @@ with open('MockHousingData.csv', newline='') as f1:
             for rowroom in reader2:
                 print(rowhousing)
                 print(rowroom)
-                testlist.append(costofhousing())
+                #testlist.append(costofhousing())
                 
 
 
         
-
         
-        #print(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7]))
+        print(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],1,1,1,1))
         
         #costlist.append([])
 

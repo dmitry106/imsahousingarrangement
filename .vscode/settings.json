@@ -1,4 +1,12 @@
 {
     "python.pythonPath": "C:\\ProgramData\\Anaconda3\\python.exe",
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "python.unitTest.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "*test.py"
+    ],
+    "python.unitTest.unittestEnabled": true
 }
