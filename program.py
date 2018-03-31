@@ -36,14 +36,19 @@ with open('MockHousingData.csv', newline='') as f1:
     reader1 = csv.reader(f1)
     if has_header:
         next(reader1)
-        
+
     for rowhousing in reader1:
 
         testlist = []
         students[rowhousing[0]] = student(rowhousing[0],rowhousing[1],rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7])
 
         with open('HallRoomData.csv', newline='') as f2:
+            has_header=csv.Sniffer().has_header(f2.read(1024))
+            f2.seek(0)
             reader2 = csv.reader(f2)
+            if has_header:
+                next(reader2)
+                
             for rowroom in reader2:
                 print(rowhousing)
                 print(rowroom)
