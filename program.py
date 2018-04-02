@@ -1,18 +1,17 @@
 import csv
 import numpy
-import scipy
 from scipy.optimize import linear_sum_assignment
 
-
-class student:
-    def __init__(self, ID, name, hall_friends_room, room_type, hall_choice, wing_1, wing_2, room_location):
-        self.name = name
-        self.hall_friends_room = hall_friends_room
-        self.room_type = room_type
-        self.hall_choice = hall_choice
-        self.wing_1 = wing_1
-        self.wing_2 = wing_2
-        self.room_location = room_location
+#Not needed for anything as of now
+# class student:
+#     def __init__(self, ID, name, hall_friends_room, room_type, hall_choice, wing_1, wing_2, room_location):
+#         self.name = name
+#         self.hall_friends_room = hall_friends_room
+#         self.room_type = room_type
+#         self.hall_choice = hall_choice
+#         self.wing_1 = wing_1
+#         self.wing_2 = wing_2
+#         self.room_location = room_location
 
 
 
@@ -21,7 +20,7 @@ costlist = []
 #cost for 
 roomtypecost = [5]
 roomlocationcost = [5]
-hallcost = [0,5,30,40] #NOTE: the hall cost for 3rd and 4th choice needs to be higher than the combined hall and wing costs
+hallcost = [0,5,30,40] #NOTE: 2nd and 3rd cost needs to be high enough to offset the added cost for 2nd choice hall without getting preferred wing
 wingcost = [0,5,10,15]
 wing2cost = [10]
 
@@ -90,8 +89,9 @@ with open('MockHousingData.csv', newline='') as f1:
         next(reader1)
 
     for rowhousing in reader1:
-
-        students[rowhousing[0]] = student(rowhousing[0],rowhousing[1],rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7])
+        
+        #just as with the class, the assigning of students to that class is unneeded as of now
+        #students[rowhousing[0]] = student(rowhousing[0],rowhousing[1],rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7])
 
         rowlist = []
 
@@ -102,20 +102,21 @@ with open('MockHousingData.csv', newline='') as f1:
             if has_header:
                 next(reader2)
             for rowroom in reader2:
-                print(rowhousing)
-                print(rowroom)
-                print(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],rowroom[1],rowroom[2],rowroom[3],rowroom[4]))
+                #print(rowhousing)  NOTE: debugging prints are left here for later should I have to mess with the dataset
+                #print(rowroom)
+                #print(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],rowroom[1],rowroom[2],rowroom[3],rowroom[4]))
                 rowlist.append(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],rowroom[1],rowroom[2],rowroom[3],rowroom[4]))
-                print(rowlist)
+                #print(rowlist)
         costlist.append(rowlist)
     
-
-print(costlist)
-print(is_squared(costlist))
+#Convert the costlist into a numpy array for ease of manipulation
 costlist = numpy.asarray(costlist)
+
+#in order for the algorithm to optimise correctly it needs to be a square matrix
 costlist = pad_to_square(costlist, costlist.max())
-print(costlist)
-print(is_squared(costlist))
+
+#print(costlist)
+#print(is_squared(costlist)) NOTE: should result in affirmative in order for the rest to work
 
 
 #INSERT ACTUAL ALGORITHM HERE-------------------------------------------------------------------------!!!!!!!!!!!!!!!!!!!!
