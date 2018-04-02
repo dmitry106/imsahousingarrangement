@@ -1,5 +1,8 @@
 import csv
 import numpy
+import scipy
+from scipy.optimize import linear_sum_assignment
+
 
 class student:
     def __init__(self, ID, name, hall_friends_room, room_type, hall_choice, wing_1, wing_2, room_location):
@@ -64,7 +67,7 @@ def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_lo
         score += wing2cost[0]
 
     if room_type == roomtype:
-        score += roomtypecost[0]
+        score += roomtypecost[0]*roommultiplier
 
     #if room_location == roomlocation:
     #    score += roomlocationcost[0]
@@ -113,6 +116,13 @@ costlist = numpy.asarray(costlist)
 costlist = pad_to_square(costlist, costlist.max())
 print(costlist)
 print(is_squared(costlist))
+
+
+#INSERT ACTUAL ALGORITHM HERE-------------------------------------------------------------------------!!!!!!!!!!!!!!!!!!!!
+resultmatrix = linear_sum_assignment(costlist)
+
+print(resultmatrix)
+
 
 
 #print(students['2'].name)
