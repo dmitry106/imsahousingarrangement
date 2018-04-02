@@ -22,8 +22,16 @@ hallcost = [0,5,30,40] #NOTE: the hall cost for 3rd and 4th choice needs to be h
 wingcost = [0,5,10,15]
 wing2cost = [10]
 
+def is_squared(matrix):
+    # Check that all rows have the correct length, not just the first one
+    return all(len(row) == len(matrix) for row in matrix)
 
-    
+def pad_to_square(a, pad_value):
+    m = a.reshape((a.shape[0], -1))
+    padded = pad_value * numpy.ones(2 * [max(m.shape)], dtype=m.dtype)
+    padded[0:m.shape[0], 0:m.shape[1]] = m
+    return padded
+
 def costfunction(choices, chosen, costlist):
     
     for i in range(0, len(choices)):
@@ -100,6 +108,12 @@ with open('MockHousingData.csv', newline='') as f1:
     
 
 print(costlist)
+print(is_squared(costlist))
+costlist = numpy.asarray(costlist)
+costlist = pad_to_square(costlist, costlist.max())
+print(costlist)
+print(is_squared(costlist))
+
 
 #print(students['2'].name)
 #
