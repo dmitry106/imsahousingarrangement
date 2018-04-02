@@ -22,20 +22,36 @@ wingcost = [0,5,10,15]
 wing2cost = [20]
 
 
+    
+def costfunction(choices, chosen, costlist):
+    for i in range(0, len(choices)):
+        if choices[i] == chosen:
+            choice = i
+            break
+    return wingcost[int(choice)]
+
+
 
 def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_location,hall,wing,room,roomtype):
     #return hall_friends_room[:1]
+    #hallmultiplier = 0
+    #roommultiplier = 0
 
     # set the multiplier for preference of hall or room
-    if int(hall_friends_room[:1]) > int(hall_friends_room[-1:])
+    if int(hall_friends_room[:1]) > int(hall_friends_room[-1:]):
         hallmultiplier = 1 #hall multiplier is smaller because more cost is less preferential
         roommultiplier = 2
-    elif int(hall_friends_room[:1]) < int(hall_friends_room[-1:])
+    elif int(hall_friends_room[:1]) < int(hall_friends_room[-1:]):
         hallmultiplier = 2
         roommultiplier = 1
 
+    
 
-    return hallcost[]
+
+
+    score = hallmultiplier*costfunction(hall_choice,hall,hallcost) + costfunction(wing_1,wing,wingcost)
+
+    return score
 
 
 
@@ -55,7 +71,7 @@ with open('MockHousingData.csv', newline='') as f1:
 
         with open('HallRoomData.csv', newline='') as f2:
             has_header=csv.Sniffer().has_header(f2.read(1024))
-            f2.seek(0)
+            f2.seek(0)  #rewind to start
             reader2 = csv.reader(f2)
             if has_header:
                 next(reader2)
