@@ -80,8 +80,9 @@ with open('MockHousingData.csv', newline='') as f1:
 
     for rowhousing in reader1:
 
-        testlist = []
         students[rowhousing[0]] = student(rowhousing[0],rowhousing[1],rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7])
+
+        rowlist = []
 
         with open('HallRoomData.csv', newline='') as f2:
             has_header=csv.Sniffer().has_header(f2.read(1024))
@@ -89,22 +90,16 @@ with open('MockHousingData.csv', newline='') as f1:
             reader2 = csv.reader(f2)
             if has_header:
                 next(reader2)
-                
             for rowroom in reader2:
                 print(rowhousing)
                 print(rowroom)
                 print(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],rowroom[1],rowroom[2],rowroom[3],rowroom[4]))
-                #testlist.append(costofhousing())
-                
+                rowlist.append(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],rowroom[1],rowroom[2],rowroom[3],rowroom[4]))
+                print(rowlist)
+        costlist.append(rowlist)
+    
 
-
-        
-        
-        print(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],1,1,1,1))
-        
-        #costlist.append([])
-
-
+print(costlist)
 
 #print(students['2'].name)
 #
