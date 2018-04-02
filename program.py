@@ -16,10 +16,10 @@ class student:
 costlist = []
 
 #cost for 
-selectioncost = [0,5,10]
-hallcost = [0,5,10,15]
+roomtypecost = [5]
+hallcost = [0,5,30,40] #NOTE: the hall cost for 3rd and 4th choice needs to be higher than the combined hall and wing costs
 wingcost = [0,5,10,15]
-wing2cost = [20]
+wing2cost = [10]
 
 
     
@@ -36,7 +36,7 @@ def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_lo
     #return hall_friends_room[:1]
     #hallmultiplier = 0
     #roommultiplier = 0
-
+    score = 0
     # set the multiplier for preference of hall or room
     if int(hall_friends_room[:1]) > int(hall_friends_room[-1:]):
         hallmultiplier = 1 #hall multiplier is smaller because more cost is less preferential
@@ -45,11 +45,19 @@ def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_lo
         hallmultiplier = 2
         roommultiplier = 1
 
+    score += hallmultiplier*costfunction(hall_choice,hall,hallcost) #add hall choice cost
+
+    if hall_choice[0] == hall: #if the 1st choice hall is chosen, then add the wing choices
+        score += costfunction(wing_1,wing,wingcost)
+
+    if (hall_choice[1] == hall) and (wing_2 != wing): #if the hall is 2nd choice check if it is the desired wing
+        score += wing2cost[0]
+
+    if room_type == roomtype:
+        score += roomtypecost[0]
+
     
-
-
-
-    score = hallmultiplier*costfunction(hall_choice,hall,hallcost) + costfunction(wing_1,wing,wingcost)
+    #score += hallmultiplier*costfunction(hall_choice,hall,hallcost) + costfunction(wing_1,wing,wingcost)
 
     return score
 
