@@ -17,6 +17,7 @@ costlist = []
 
 #cost for 
 roomtypecost = [5]
+roomlocationcost = [5]
 hallcost = [0,5,30,40] #NOTE: the hall cost for 3rd and 4th choice needs to be higher than the combined hall and wing costs
 wingcost = [0,5,10,15]
 wing2cost = [10]
@@ -24,11 +25,12 @@ wing2cost = [10]
 
     
 def costfunction(choices, chosen, costlist):
+    
     for i in range(0, len(choices)):
         if choices[i] == chosen:
             choice = i
             break
-    return wingcost[int(choice)]
+    return costlist[int(choice)]
 
 
 
@@ -56,7 +58,11 @@ def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_lo
     if room_type == roomtype:
         score += roomtypecost[0]
 
+    #if room_location == roomlocation:
+    #    score += roomlocationcost[0]
     
+
+
     #score += hallmultiplier*costfunction(hall_choice,hall,hallcost) + costfunction(wing_1,wing,wingcost)
 
     return score
@@ -87,6 +93,7 @@ with open('MockHousingData.csv', newline='') as f1:
             for rowroom in reader2:
                 print(rowhousing)
                 print(rowroom)
+                print(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],rowroom[1],rowroom[2],rowroom[3],rowroom[4]))
                 #testlist.append(costofhousing())
                 
 
