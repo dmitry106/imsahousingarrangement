@@ -22,9 +22,6 @@ class housingroom:
         self.room = room
         self.room_type = room_type
 
-
-
-
 costlist = []
 
 #cost for 
@@ -130,9 +127,12 @@ tuplesofhousing = list(zip(row_ind,col_ind))
 housingassignmentarray = numpy.asarray(tuplesofhousing)
 print(housingassignmentarray)
 
-# housingassignmentarray = numpy.asarray(list(map(lambda x: x+1 ,housingassignmentarray)))
+housingassignmentarray = numpy.asarray(list(map(lambda x: x+1 ,housingassignmentarray)))
 
-# for row in housingassignmentarray:
-#     print(students[int(row[0])].name,"to",housingrooms[row[1]].hall,housingrooms[row[1]].wing,housingrooms[row[1]].room)
+
+for row in housingassignmentarray:
+    if row[0] > 200: #NOTE: THIS TOTAL TRASH IF STATEMENT IS A PLACEHOLDER SOLUTION FOR 200 STUDENTS
+        break
+    print(students[row[0]].name,"to",housingrooms[row[1]].hall,housingrooms[row[1]].wing,housingrooms[row[1]].room)
 
 
