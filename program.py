@@ -3,15 +3,25 @@ import numpy
 from scipy.optimize import linear_sum_assignment
 
 #Not needed for anything as of now
-# class student:
-#     def __init__(self, ID, name, hall_friends_room, room_type, hall_choice, wing_1, wing_2, room_location):
-#         self.name = name
-#         self.hall_friends_room = hall_friends_room
-#         self.room_type = room_type
-#         self.hall_choice = hall_choice
-#         self.wing_1 = wing_1
-#         self.wing_2 = wing_2
-#         self.room_location = room_location
+class student:
+    def __init__(self, ID, name, hall_friends_room, room_type, hall_choice, wing_1, wing_2, room_location):
+        self.id = int(ID)
+        self.name = name
+        self.hall_friends_room = hall_friends_room
+        self.room_type = room_type
+        self.hall_choice = hall_choice
+        self.wing_1 = wing_1
+        self.wing_2 = wing_2
+        self.room_location = room_location
+
+class housingroom:
+    def __init__(self, ID, hall, wing, room, room_type):
+        self.id = int(ID)
+        self.hall = hall
+        self.wing = wing
+        self.room = room
+        self.room_type = room_type
+
 
 
 
@@ -72,6 +82,7 @@ def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_lo
 
 
 students = dict() #dict to iterate list of variables
+housingrooms = dict()
 
 with open('MockHousingData.csv', newline='') as f1:
     has_header = csv.Sniffer().has_header(f1.read(1024))
@@ -83,7 +94,7 @@ with open('MockHousingData.csv', newline='') as f1:
     for rowhousing in reader1:
         
         #just as with the class, the assigning of students to that class is unneeded as of now
-        #students[rowhousing[0]] = student(rowhousing[0],rowhousing[1],rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7])
+        students[int(rowhousing[0])] = student(rowhousing[0],rowhousing[1],rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7])
 
         rowlist = []
 
@@ -97,6 +108,7 @@ with open('MockHousingData.csv', newline='') as f1:
                 #print(rowhousing)  NOTE: debugging prints are left here for later should I have to mess with the dataset
                 #print(rowroom)
                 #print(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],rowroom[1],rowroom[2],rowroom[3],rowroom[4]))
+                housingrooms[int(rowroom[0])] = housingroom(rowroom[0],rowroom[1],rowroom[2],rowroom[3],rowroom[4])
                 rowlist.append(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],rowroom[1],rowroom[2],rowroom[3],rowroom[4]))
                 #print(rowlist)
         costlist.append(rowlist)
@@ -114,14 +126,13 @@ costlist = pad_to_square(costlist, costlist.max())
 #INSERT ACTUAL ALGORITHM HERE-------------------------------------------------------------------------!!!!!!!!!!!!!!!!!!!!
 resultmatrix = linear_sum_assignment(costlist)
 row_ind, col_ind = resultmatrix
-
-#print(resultmatrix)
-
 tuplesofhousing = list(zip(row_ind,col_ind))
+housingassignmentarray = numpy.asarray(tuplesofhousing)
+print(housingassignmentarray)
 
-print(tuplesofhousing)
+# housingassignmentarray = numpy.asarray(list(map(lambda x: x+1 ,housingassignmentarray)))
 
-
-
+# for row in housingassignmentarray:
+#     print(students[int(row[0])].name,"to",housingrooms[row[1]].hall,housingrooms[row[1]].wing,housingrooms[row[1]].room)
 
 
