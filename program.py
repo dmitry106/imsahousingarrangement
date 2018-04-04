@@ -45,9 +45,6 @@ def costfunction(choices, chosen, costlist):
 
 
 def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_location,hall,wing,room,roomtype):
-    #return hall_friends_room[:1]
-    #hallmultiplier = 0
-    #roommultiplier = 0
     score = 0
     # set the multiplier for preference of hall or room
     if int(hall_friends_room[:1]) > int(hall_friends_room[-1:]):
@@ -68,12 +65,7 @@ def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_lo
     if room_type == roomtype:
         score += roomtypecost[0]*roommultiplier
 
-    #if room_location == roomlocation:
-    #    score += roomlocationcost[0]
-    
 
-
-    #score += hallmultiplier*costfunction(hall_choice,hall,hallcost) + costfunction(wing_1,wing,wingcost)
 
     return score
 
@@ -121,22 +113,15 @@ costlist = pad_to_square(costlist, costlist.max())
 
 #INSERT ACTUAL ALGORITHM HERE-------------------------------------------------------------------------!!!!!!!!!!!!!!!!!!!!
 resultmatrix = linear_sum_assignment(costlist)
+row_ind, col_ind = resultmatrix
 
-print(resultmatrix)
+#print(resultmatrix)
+
+tuplesofhousing = list(zip(row_ind,col_ind))
+
+print(tuplesofhousing)
 
 
 
-#print(students['2'].name)
-#
-#imput_array = numpy.array([[1,2,3]])
-#append_array = [2,3,4,5]
-#
-#costlist.append(append_array)
-#costlist.append(append_array)
-#costlist.append(append_array)
-#costlist.append(append_array)
-#
-##print(costlist)
-#
-#costlistarray = numpy.array(costlist)
-#print(costlistarray)
+
+
