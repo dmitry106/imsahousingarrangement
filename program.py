@@ -81,6 +81,8 @@ def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_lo
 students = dict() #dict to iterate list of variables
 housingrooms = dict()
 
+maxnumberofstudent = 0
+
 with open('MockHousingData.csv', newline='') as f1:
     has_header = csv.Sniffer().has_header(f1.read(1024))
     f1.seek(0)   #rewind to start
@@ -90,6 +92,8 @@ with open('MockHousingData.csv', newline='') as f1:
 
     for rowhousing in reader1:
         
+        maxnumberofstudent = maxnumberofstudent + 1 #NOTE: This is for later to determine the maximum number of loops to do so you don't end up iterating over the null values to make the matrix square
+
         #just as with the class, the assigning of students to that class is unneeded as of now
         students[int(rowhousing[0])] = student(rowhousing[0],rowhousing[1],rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7])
 
@@ -131,7 +135,7 @@ housingassignmentarray = numpy.asarray(list(map(lambda x: x+1 ,housingassignment
 
 
 for row in housingassignmentarray:
-    if row[0] > 200: #NOTE: THIS TOTAL TRASH IF STATEMENT IS A PLACEHOLDER SOLUTION FOR 200 STUDENTS
+    if row[0] > maxnumberofstudent: #NOTE:NOTE:NOTE:NOTE THIS TOTAL TRASH IF STATEMENT IS A PLACEHOLDER SOLUTION FOR 200 STUDENTS and I hate it FIX FIX FIX
         break
     print(students[row[0]].name,"to",housingrooms[row[1]].hall,housingrooms[row[1]].wing,housingrooms[row[1]].room)
 
