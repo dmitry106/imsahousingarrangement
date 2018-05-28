@@ -91,14 +91,15 @@ with open('MockHousingData.csv', newline='') as f1:
         next(reader1)
 
     for rowhousing in reader1:
-        
+        if rowhousing[8] == "1":
+            next(reader1)
         maxnumberofstudent = maxnumberofstudent + 1 #NOTE: This is for later to determine the maximum number of loops to do so you don't end up iterating over the null values to make the matrix square
 
         #just as with the class, the assigning of students to that class is unneeded as of now
         students[int(rowhousing[0])] = student(rowhousing[0],rowhousing[1],rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7])
 
         rowlist = []
-
+        
         with open('HallRoomData.csv', newline='') as f2:
             has_header=csv.Sniffer().has_header(f2.read(1024))
             f2.seek(0)  #rewind to start
