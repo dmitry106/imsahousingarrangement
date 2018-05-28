@@ -136,6 +136,6 @@ housingassignmentarray = numpy.asarray(list(map(lambda x: x+1 ,housingassignment
 
 
 for row in housingassignmentarray:
-    if row[0] > maxnumberofstudent: #NOTE:NOTE:NOTE:NOTE THIS TOTAL TRASH IF STATEMENT IS A PLACEHOLDER SOLUTION FOR row[0] STUDENTS and I hate it FIX FIX FIX
+    if row[0] > maxnumberofstudent: #NOTE:NOTE:NOTE:NOTE THIS TOTAL TRASH IF STATEMENT IS A SAD SOLUTION FOR row[0] STUDENTS and I hate it
         break
     print(students[row[0]].name,"to",housingrooms[row[1]].hall,housingrooms[row[1]].wing,housingrooms[row[1]].room)
