@@ -1,11 +1,11 @@
 import csv
 import numpy
-import scipy
 from scipy.optimize import linear_sum_assignment
 
-
+#Not needed for anything as of now
 class student:
     def __init__(self, ID, name, hall_friends_room, room_type, hall_choice, wing_1, wing_2, room_location):
+        self.id = int(ID)
         self.name = name
         self.hall_friends_room = hall_friends_room
         self.room_type = room_type
@@ -14,14 +14,20 @@ class student:
         self.wing_2 = wing_2
         self.room_location = room_location
 
-
+class housingroom:
+    def __init__(self, ID, hall, wing, room, room_type):
+        self.id = int(ID)
+        self.hall = hall
+        self.wing = wing
+        self.room = room
+        self.room_type = room_type
 
 costlist = []
 
 #cost for 
 roomtypecost = [5]
 roomlocationcost = [5]
-hallcost = [0,5,30,40] #NOTE: the hall cost for 3rd and 4th choice needs to be higher than the combined hall and wing costs
+hallcost = [0,5,30,40] #NOTE: 2nd and 3rd cost needs to be high enough to offset the added cost for 2nd choice hall without getting preferred wing
 wingcost = [0,5,10,15]
 wing2cost = [10]
 
@@ -46,9 +52,6 @@ def costfunction(choices, chosen, costlist):
 
 
 def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_location,hall,wing,room,roomtype):
-    #return hall_friends_room[:1]
-    #hallmultiplier = 0
-    #roommultiplier = 0
     score = 0
     # set the multiplier for preference of hall or room
     if int(hall_friends_room[:1]) > int(hall_friends_room[-1:]):
@@ -69,18 +72,16 @@ def costofhousing (hall_friends_room,room_type,hall_choice,wing_1,wing_2,room_lo
     if room_type == roomtype:
         score += roomtypecost[0]*roommultiplier
 
-    #if room_location == roomlocation:
-    #    score += roomlocationcost[0]
-    
 
-
-    #score += hallmultiplier*costfunction(hall_choice,hall,hallcost) + costfunction(wing_1,wing,wingcost)
 
     return score
 
 
 
 students = dict() #dict to iterate list of variables
+housingrooms = dict()
+
+maxnumberofstudent = 0
 
 with open('MockHousingData.csv', newline='') as f1:
     has_header = csv.Sniffer().has_header(f1.read(1024))
@@ -90,11 +91,15 @@ with open('MockHousingData.csv', newline='') as f1:
         next(reader1)
 
     for rowhousing in reader1:
+        if rowhousing[8] == "1":
+            next(reader1)
+        maxnumberofstudent = maxnumberofstudent + 1 #NOTE: This is for later to determine the maximum number of loops to do so you don't end up iterating over the null values to make the matrix square
 
-        students[rowhousing[0]] = student(rowhousing[0],rowhousing[1],rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7])
+        #just as with the class, the assigning of students to that class is unneeded as of now
+        students[int(rowhousing[0])] = student(rowhousing[0],rowhousing[1],rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7])
 
         rowlist = []
-
+        
         with open('HallRoomData.csv', newline='') as f2:
             has_header=csv.Sniffer().has_header(f2.read(1024))
             f2.seek(0)  #rewind to start
@@ -102,40 +107,35 @@ with open('MockHousingData.csv', newline='') as f1:
             if has_header:
                 next(reader2)
             for rowroom in reader2:
-                print(rowhousing)
-                print(rowroom)
-                print(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],rowroom[1],rowroom[2],rowroom[3],rowroom[4]))
+                #print(rowhousing)  NOTE: debugging prints are left here for later should I have to mess with the dataset
+                #print(rowroom)
+                #print(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],rowroom[1],rowroom[2],rowroom[3],rowroom[4]))
+                housingrooms[int(rowroom[0])] = housingroom(rowroom[0],rowroom[1],rowroom[2],rowroom[3],rowroom[4])
                 rowlist.append(costofhousing(rowhousing[2],rowhousing[3],rowhousing[4],rowhousing[5],rowhousing[6],rowhousing[7],rowroom[1],rowroom[2],rowroom[3],rowroom[4]))
-                print(rowlist)
+                #print(rowlist)
         costlist.append(rowlist)
     
-
-print(costlist)
-print(is_squared(costlist))
+#Convert the costlist into a numpy array for ease of manipulation
 costlist = numpy.asarray(costlist)
+
+#in order for the algorithm to optimise correctly it needs to be a square matrix
 costlist = pad_to_square(costlist, costlist.max())
-print(costlist)
-print(is_squared(costlist))
+
+#print(costlist)
+#print(is_squared(costlist)) NOTE: should result in affirmative in order for the rest to work
 
 
 #INSERT ACTUAL ALGORITHM HERE-------------------------------------------------------------------------!!!!!!!!!!!!!!!!!!!!
 resultmatrix = linear_sum_assignment(costlist)
+row_ind, col_ind = resultmatrix
+tuplesofhousing = list(zip(row_ind,col_ind))
+housingassignmentarray = numpy.asarray(tuplesofhousing)
+print(housingassignmentarray)
 
-print(resultmatrix)
+housingassignmentarray = numpy.asarray(list(map(lambda x: x+1 ,housingassignmentarray)))
 
 
-
-#print(students['2'].name)
-#
-#imput_array = numpy.array([[1,2,3]])
-#append_array = [2,3,4,5]
-#
-#costlist.append(append_array)
-#costlist.append(append_array)
-#costlist.append(append_array)
-#costlist.append(append_array)
-#
-##print(costlist)
-#
-#costlistarray = numpy.array(costlist)
-#print(costlistarray)
+for row in housingassignmentarray:
+    if row[0] > maxnumberofstudent: #NOTE:NOTE:NOTE:NOTE THIS TOTAL TRASH IF STATEMENT IS A SAD SOLUTION FOR row[0] STUDENTS and I hate it
+        break
+    print(students[row[0]].name,"to",housingrooms[row[1]].hall,housingrooms[row[1]].wing,housingrooms[row[1]].room)
