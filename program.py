@@ -134,8 +134,13 @@ print(housingassignmentarray)
 
 housingassignmentarray = numpy.asarray(list(map(lambda x: x+1 ,housingassignmentarray)))
 
+with open("output.csv", 'w', newline='') as writer1:
+    writer = csv.writer(writer1)
+    
+    for row in housingassignmentarray:
+        if row[0] > maxnumberofstudent: #NOTE:NOTE:NOTE:NOTE THIS TOTAL TRASH IF STATEMENT IS A SAD SOLUTION FOR row[0] STUDENTS and I hate it
+            break
+        print(students[row[0]].name,"to",housingrooms[row[1]].hall,housingrooms[row[1]].wing,housingrooms[row[1]].room)
+        writer.writerow([students[row[0]].name,housingrooms[row[1]].hall,housingrooms[row[1]].wing,housingrooms[row[1]].room])
 
-for row in housingassignmentarray:
-    if row[0] > maxnumberofstudent: #NOTE:NOTE:NOTE:NOTE THIS TOTAL TRASH IF STATEMENT IS A SAD SOLUTION FOR row[0] STUDENTS and I hate it
-        break
-    print(students[row[0]].name,"to",housingrooms[row[1]].hall,housingrooms[row[1]].wing,housingrooms[row[1]].room)
+
