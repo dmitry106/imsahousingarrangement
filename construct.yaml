@@ -1,0 +1,19 @@
+name: program
+version: 0.0.1
+
+install_in_dependency_order: True
+
+channels:
+- http://repo.anaconda.com/pkgs/main/
+
+specs:
+  - python 3.5*
+  - conda
+  - numpy
+  - scipy
+
+
+
+license_file: LICENSE.txt
+
+
