@@ -14,11 +14,12 @@ http://www.math.harvard.edu/archive/20_spring_05/handouts/assignment_overheads.p
 
 
 
-## Using
+## Usage
 https://mockaroo.com/ for the random data
 
-Python 3+
-
+Install python 3: https://www.python.org/downloads/release/python-365/
+Numpy: pip install numpy
+Scipy: pip install scipy
 
 
 
